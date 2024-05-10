@@ -1,0 +1,29 @@
+version: "3.7"
+services:
+  webui:
+    image: minimesticker/auto:latest
+    restart: unless-stopped
+    container_name: sd-cartoon
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # environment:
+    #   COMMANDLINE_ARGS: "--listen --port 7860 --gradio-auth root:password --use-cpu all --precision full --no-half --skip-torch-cuda-test --skip-version-check --allow-code --enable-insecure-extension-access --api --xformers --opt-channelslast"
+    ports:
+      - mode: ingress
+        target: 7860
+        published: 7860
+        protocol: tcp
+    volumes:
+      - models:/app/models
+      - extensions:/app/extensions
+      - outputs:/app/outputs
+      - repositories:/app/repositories
+      # - logs:/app/logs
+
+volumes:
+  models:
+  extensions:
+  outputs:
+  repositories:
+  # logs:
